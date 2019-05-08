@@ -93,7 +93,11 @@ Verify the installed version by the following command:
 ### Install R
 The commands to install R on the Ubuntu (16.04.3 LTS) node instance is as below:
 ```
-  $ sudo sh -c 'echo "deb http://cran.rstudio.com/bin/linux/ubuntu trusty/" >> /etc/apt/sources.list' && gpg --keyserver keyserver.ubuntu.com --recv-key E084DAB9 &&  gpg -a --export E084DAB9 | sudo apt-key add - &&  sudo apt-get update &&  sudo apt-get install r-base
+  $ sudo sh -c 'echo "deb http://cran.rstudio.com/bin/linux/ubuntu trusty/" >> /etc/apt/sources.list'
+  $ gpg --keyserver keyserver.ubuntu.com --recv-key E084DAB9 && gpg -a --export E084DAB9
+  $ sudo apt-key add -
+  $ sudo apt-get update 
+  $ sudo apt-get install r-base
 ```
 
 To verify the installation, you can run the following command to check the installed R version:
