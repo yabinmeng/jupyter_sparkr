@@ -126,7 +126,7 @@ Third (optionally), in order to use more extended R libraries (e.g. from a Jupyt
 ```
 
 ### Configure Remote DSE Cluster Connection for SparkR
-By default, DSE SparkR library tries to connect to the local node as the Spark master node. In this testing, since the Spark master node (one of the DSE Analytics node) is on a remote cluster, we need to tell SparkR where the remote Spark master node is. This is done by making the follwing configuration changes in **spark-defaults.conf** of the DSE Spark installation (e.g. /etc/dse/spark/spark-defaults.conf). We can also make other Spark related settings here. For example, maximum number of CPUs and memory allocated to the SparkSession used by SparkR. 
+By default, DSE SparkR library tries to connect to the local node as the Spark master node. For this testing, since the Spark master node (one of the DSE Analytics node) is on a remote cluster, we need to tell SparkR where the remote Spark master node is. This is done by making the follwing configuration changes in **spark-defaults.conf** of the DSE Spark installation (e.g. /etc/dse/spark/spark-defaults.conf). We can also make other Spark related settings here. For example, maximum number of CPUs and memory allocated to the SparkSession used by SparkR. 
 
 ```
   spark.master  dse://<DSE_Analytic_Node_IP>:9042
@@ -137,4 +137,7 @@ By default, DSE SparkR library tries to connect to the local node as the Spark m
   spark.executor.memory  2G
 ```
 
-Please note that:
+Please **note** that:
+1. For DSE Analytics (Spark), the format of the Spark master node IP address is as: ***dse://<DSE_Analytic_Node_IP>:9042*** and it can be the IP of any DSE Analytics node in the cluster. It is not necessarily to use the "real" Spark master IP. DSE is able to route the connection to the right Spark master internally.
+
+2. It is important to limit the CPU and memory usage by the SparkR session. Otherwise, it will use all available CPU and memories allocated to Spark worker/executor on DSE servers and my block other Spark applications indefinitely. 
