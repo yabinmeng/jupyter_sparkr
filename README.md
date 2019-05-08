@@ -115,8 +115,10 @@ Second, from the R console command line, run the following commands. The install
   > IRkernel::installspec(user = FALSE)
 ```
 
-Third (optionally), in order to use more extended R libraries (e.g. from a Jupyter R notebook), we need to install them as well following the same approach. For example, in my test, I installed [dplyr] (https://dplyr.tidyverse.org/) and [ggplot2] (https://ggplot2.tidyverse.org/) for more advanced R data manipulation and graph processing. The commands are as below:
+Third (optionally), in order to use more extended R libraries (e.g. from a Jupyter R notebook), we need to install them as well following the same approach. For example, in my test, I installed [dplyr](https://dplyr.tidyverse.org/) and [ggplot2](https://ggplot2.tidyverse.org/) for more advanced R data manipulation and graph processing. The commands are as below:
 ```
   > install.packages('dplyr')
   > install.packages('ggplot2')
 ```
+
+### Configure Jupyter Server for Remote DSE Cluster Connection (via SparkR)
