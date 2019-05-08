@@ -125,4 +125,16 @@ Third (optionally), in order to use more extended R libraries (e.g. from a Jupyt
   > install.packages('ggplot2')
 ```
 
-### Configure Jupyter Server for Remote DSE Cluster Connection (via SparkR)
+### Configure Remote DSE Cluster Connection for SparkR
+By default, DSE SparkR library tries to connect to the local node as the Spark master node. In this testing, since the Spark master node (one of the DSE Analytics node) is on a remote cluster, we need to tell SparkR where the remote Spark master node is. This is done by making the follwing configuration changes in **spark-defaults.conf** of the DSE Spark installation (e.g. /etc/dse/spark/spark-defaults.conf). We can also make other Spark related settings here. For example, maximum number of CPUs and memory allocated to the SparkSession used by SparkR. 
+
+```
+  spark.master  dse://<DSE_Analytic_Node_IP>:9042
+  spark.cassandra.connection.host  <DSE_Analytic_Node_IP>
+  spark.hadoop.cassandra.host  <DSE_Analytic_Node_IP>
+  spark.hadoop.fs.defaultFS  dsefs://<DSE_Analytic_Node_IP>
+  spark.cores.max  1
+  spark.executor.memory  2G
+```
+
+Please note that:
