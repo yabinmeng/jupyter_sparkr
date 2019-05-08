@@ -67,14 +67,56 @@ Second and more importantly, it requires granting the end user proper access pri
 
 ## Integrate DSE R Support with Jupyter Notebook
 
-In order to address the above concerns, we can set up a Juypter notebook (server) on a dedicated client node/instance that can connect to the DSE cluster as a regular client. The procedure of doing so is described in details below:
+In order to address the above concerns, we can set up a Juypter notebook (server) on a dedicated client node/instance that can connect to the DSE cluster as a regular client. The procedure of doing so is described in details below. 
+
+**NOTE**: the installation commands listed below are all based on Ubuntu 16.04.3 LTS OS. For other OS, please change accordingly.
+
 
 ### Install DSE Binaries
 
 It is needed to install DSE binaries on the client node so Jupyter R kernel can pick up the right DSE libraries for utilizing DSE SparkR funcationality. You can use any supported installation method (linux package, tarball, etc.) to install DSE binaries on the client node. But please make sure do NOT start DSE service because all we need here is proper DSE libraries. In my test, I use linux ATP package installation method that can be found at:
 https://docs.datastax.com/en/install/6.7/install/installDEBdse.html
 
+### Install Jupyter
+
+Run the following commands to install Jupyter (server)
+```
+  $ sudo pip install --upgrade pip
+  $ sudo python -m pip install jupyter
+```
+
+Verify the installed version by the following command:
+```
+  $ jupyter --version
+```
 
 ### Install R
+The commands to install R on the Ubuntu (16.04.3 LTS) node instance is as below:
+```
+  $ sudo sh -c 'echo "deb http://cran.rstudio.com/bin/linux/ubuntu trusty/" >> /etc/apt/sources.list' && gpg --keyserver keyserver.ubuntu.com --recv-key E084DAB9 &&  gpg -a --export E084DAB9 | sudo apt-key add - &&  sudo apt-get update &&  sudo apt-get install r-base
+```
 
+To verify the installation, you can run the following command to check the installed R version:
+```
+  $ R --version
+```
 
+### Install Jupypter R Kernel and other R Libraries
+In oder to use R within Juypter, we need to install [IRkernel](https://github.com/IRkernel/IRkernel). The procedure of doing so is as below:
+
+First, bring up the R console with "sudo" privilege:
+```
+  $ sudo R
+```
+
+Second, from the R console command line, run the following commands. The installation process may take a while to complete
+```
+  > install.packages('IRkernel')
+  > IRkernel::installspec(user = FALSE)
+```
+
+Third (optionally), in order to use more extended R libraries (e.g. from a Jupyter R notebook), we need to install them as well following the same approach. For example, in my test, I installed [dplyr] (https://dplyr.tidyverse.org/) and [ggplot2] (https://ggplot2.tidyverse.org/) for more advanced R data manipulation and graph processing. The commands are as below:
+```
+  > install.packages('dplyr')
+  > install.packages('ggplot2')
+```
