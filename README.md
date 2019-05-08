@@ -141,3 +141,6 @@ Please **note** that:
 1. For DSE Analytics (Spark), the format of the Spark master node IP address is as: ***dse://<DSE_Analytic_Node_IP>:9042*** and it can be the IP of any DSE Analytics node in the cluster. It is not necessarily to use the "real" Spark master IP. DSE is able to route the connection to the right Spark master internally.
 
 2. It is important to limit the CPU and memory usage by the SparkR session. Otherwise, it will use all available CPU and memories allocated to Spark worker/executor on DSE servers and my block other Spark applications indefinitely. 
+
+### Start Jupyter Server
+At this point, the Juypter server is ready to start, with the support for R and integration with Spark (through SparkR). Run the following command to start the Jupyter server.
