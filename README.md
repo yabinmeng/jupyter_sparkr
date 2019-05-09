@@ -172,10 +172,11 @@ In SparkR::sparkR.session() :
 [I 04:17:29.489 NotebookApp] Saving file at /MyDSESparkR.ipynb
 ```
 
-Meanwhile, from Spark master web UI, you should see a running application named under "sparkR", as below:
+Meanwhile, from Spark master web UI, you should see a running application named under "sparkR", as below. 
 
 <img src="https://github.com/yabinmeng/jupyter_sparkr/blob/master/resources/jupypter_sparkr_master.png" alt="Jupyter Web UI]" width="600">
 
+Please also **notice** the CPU and memory usage as limiteded per our previous settings. This is very important to set the limits because the SparkR session launched from the notebook is a long running session. Unless the notebook user explicitly terminate the R kernel from the notebook UI (note: not just simply close the notebook web browser), it will stay alive until Jupyter server restarts. If we don't set the Spark resource usage limit, the SparkR session will grab all available resources, leading all future Spark applications stuck waiting. 
 
 
 ![R Note Book with Spark](https://github.com/yabinmeng/jupyter_sparkr/blob/master/resources/notebook/MyDSESparkR.ipynb)
