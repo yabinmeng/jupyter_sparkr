@@ -148,11 +148,11 @@ At this point, the Juypter server is ready to start, with the support for R and 
   $ dse exec jupyter notebook --ip=0.0.0.0 --port=9090
 ```
 
+![Jupyter Web UI](https://github.com/yabinmeng/jupyter_sparkr/blob/master/resources/jupyter_r_home.png | width = 200)
+
 The above command starts a Jupyter server process that listens on port **9090** on all IP address **0.0.0.0**. This is needed if we want to access the Jupyter notebook from a public IP.
 
 ```
- dse exec jupyter notebook --ip=0.0.0.0 --port=9090
-
 [I 04:00:17.940 NotebookApp] Serving notebooks from local directory: /home/automaton
 [I 04:00:17.940 NotebookApp] The Jupyter Notebook is running at:
 [I 04:00:17.940 NotebookApp] http://(ip-172-31-21-1 or 127.0.0.1):9090/?token=365bc1e9175c1d889461a7a1b9dc324fc89d0c0a14ca9886
@@ -185,8 +185,6 @@ In SparkR::sparkR.session() :
 [I 04:17:16.118 NotebookApp] Adapting to protocol v5.0 for kernel 0e76461d-c61c-4714-b1d5-d8cac1e88fa7
 [I 04:17:29.489 NotebookApp] Saving file at /MyDSESparkR.ipynb
 ```
-
-![Jupyter Web UI](https://github.com/yabinmeng/jupyter_sparkr/blob/master/resources/jupyter_r_home.png)
 
 
 ![Note Book Example](https://github.com/yabinmeng/jupyter_sparkr/blob/master/resources/notebook/MyDSESparkR.ipynb)
