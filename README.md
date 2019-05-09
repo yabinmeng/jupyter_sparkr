@@ -186,7 +186,7 @@ In SparkR::sparkR.session() :
 [I 04:17:29.489 NotebookApp] Saving file at /MyDSESparkR.ipynb
 ```
 
-https://github.com/yabinmeng/jupyter_sparkr/blob/master/resources/jupyter_r_home.png
+![Jupyter Web UI](https://github.com/yabinmeng/jupyter_sparkr/blob/master/resources/jupyter_r_home.png)
 
 
-https://github.com/yabinmeng/jupyter_sparkr/blob/master/resources/notebook/MyDSESparkR.ipynb
+![Note Book Example](https://github.com/yabinmeng/jupyter_sparkr/blob/master/resources/notebook/MyDSESparkR.ipynb)
