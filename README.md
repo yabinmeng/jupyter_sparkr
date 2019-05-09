@@ -4,7 +4,7 @@ This document describes the procedure of how to use [Jupyter notebook](https://j
 
 ## Environment Setup
 
-In order to better describe the proceure, I use an example in a testing environment that includes:
+In order to better describe the procedure, I use an example in a testing environment that includes:
 
 * **One DSE (6.7.3) cluster with DSE Analytics (Spark) enabled** 
 
@@ -20,12 +20,12 @@ The client node/instance needs to be able to successfully connect to the DSE clu
 
 ## Native DSE support for R
 
-DSE has native support for using R via SparkR through a console. On any DSE Anatlycis node, install R first and then execute the following command will bring up the SparkR console. 
+DSE has native support for using R via SparkR through a console. On any DSE Analytics node, install R first and then execute the following command will bring up the SparkR console. 
 ```
   $ dse sparkR
 ```
 
-If the above command is executed successfuly, we should see something similar to the output below, which tells a few important information:
+If the above command is executed successfully, we should see something similar to the output below, which tells a few important information:
 * The log file location
 * Spark and R versions
 * The SparkSession (named as 'spark') that can be used in the console directly, which can be used to fetch data from C* tables.
@@ -58,19 +58,19 @@ From the console command input (after '>'), you can type in the required R code.
   > 
 ```
 
-This method, although works, has a major limitation: It requires granting the end user proper access privilege to the DSE Analytics nodes. For many cases, it is treated as a security violation by granting direct end user access to production nodes; and therefore forbidden by many organization's IT security/compliance department.
+This method, although works, has a major limitation: It requires granting the end user proper access privilege to the DSE Analytics nodes. For many cases, it is treated as a security violation by granting direct end user access to production nodes; and therefore, forbidden by many organization's IT security/compliance department.
 
 
 ## Integrate DSE R Support with Jupyter Notebook
 
-In order to address the above concerns, we can set up a Juypter notebook (server) on a dedicated client node/instance that can connect to the DSE cluster as a regular client. The procedure of doing so is described in details below. 
+In order to address the above concerns, we can set up a Jupyter notebook (server) on a dedicated client node/instance that can connect to the DSE cluster as a regular client. The procedure of doing so is described in detail below. 
 
-**NOTE**: the installation commands listed below are all based on Ubuntu 16.04.3 LTS OS. For other OS, please change accordingly.
+**NOTE**: the installation commands listed below are all based on Ubuntu 16.04.3 LTS OS. For aother OS, please change accordingly.
 
 
 ### Install DSE Binaries
 
-It is needed to install DSE binaries on the client node so Jupyter R kernel can pick up the right DSE libraries to utilize DSE SparkR funcationality. You can use any supported installation method (linux package, tarball, etc.) to install DSE binaries on the client node. But please make sure do NOT start DSE service because all we need here are DSE libraries. In my test, I use linux ATP package installation method that can be found at:
+It is needed to install DSE binaries on the client node so Jupyter R kernel can pick up the right DSE libraries to utilize DSE SparkR functionality. You can use any supported installation method (Linux package, tarball, etc.) to install DSE binaries on the client node. But please make sure do NOT start DSE service because all we need here are DSE libraries. In my test, I use Linux ATP package installation method that can be found at:
 https://docs.datastax.com/en/install/6.7/install/installDEBdse.html
 
 ### Install Jupyter
@@ -101,8 +101,8 @@ To verify the installation, you can run the following command to check the insta
   $ R --version
 ```
 
-### Install Jupypter R Kernel and other R Libraries
-In oder to use R within Juypter, we need to install [IRkernel](https://github.com/IRkernel/IRkernel). The procedure of doing so is as below:
+### Install Jupyter R Kernel and other R Libraries
+In oder to use R within Jupyter, we need to install [IRkernel](https://github.com/IRkernel/IRkernel). The procedure of doing so is as below:
 
 First, bring up the R console with "sudo" privilege:
 ```
@@ -122,7 +122,7 @@ Third (optionally), in order to use more extended R libraries, we need to instal
 ```
 
 ### Configure Remote DSE Cluster Connection for SparkR
-By default, DSE SparkR library tries to connect to the local node as the Spark master node. For this testing, since the Spark master node (one of the DSE Analytics node) is on a remote cluster, we need to tell SparkR where the remote Spark master node is. This is done by making the follwing configuration changes in **spark-defaults.conf** of the DSE Spark installation (e.g. /etc/dse/spark/spark-defaults.conf). We can also make other Spark related settings here. For example, the maximum number of CPUs and memory allocated to the SparkSession used by SparkR. 
+By default, DSE SparkR library tries to connect to the local node as the Spark master node. For this testing, since the Spark master node (one of the DSE Analytics node) is on a remote cluster, we need to tell SparkR where the remote Spark master node is. This is done by making the following configuration changes in **spark-defaults.conf** of the DSE Spark installation (e.g. /etc/dse/spark/spark-defaults.conf). We can also make other Spark related settings here. For example, the maximum number of CPUs and memory allocated to the SparkSession used by SparkR. 
 
 ```
   spark.master  dse://<DSE_Analytic_Node_IP>:9042
@@ -139,7 +139,7 @@ Please **note** that:
 2. It is important to limit the CPU and memory usage by the SparkR session. Otherwise, it will use all available CPU and memories allocated to Spark worker/executor on DSE servers and my block other Spark applications indefinitely. 
 
 ### Start Jupyter Server
-At this point, the Juypter server is ready to start, with the support for R and integration with Spark (through SparkR). Run the following command to start the Jupyter server.
+At this point, the Jupyter server is ready to start, with the support for R and integration with Spark (through SparkR). Run the following command to start the Jupyter server.
 ```
   $ dse exec jupyter notebook --ip=0.0.0.0 --port=9090
 ```
@@ -178,7 +178,7 @@ Meanwhile, from Spark master web UI, you should see a running application named 
 
 #### Limit SparkR Resource Usage
 
-Please also **notice** the CPU and memory usage as limiteded per our previous settings. This is very important to set the limits because the SparkR session launched from the notebook is a long running session. Unless the notebook user explicitly terminate the R kernel (see below), the SparkR session will stay alive until Jupyter server restarts. If we don't set the Spark resource usage limit, the SparkR session will grab all available resources, leading all future Spark applications stuck waiting. 
+Please also **notice** the CPU and memory usage as limited per our previous settings. This is very important to set the limits because the SparkR session launched from the notebook is a long running session. Unless the notebook user explicitly terminates the R kernel (see below), the SparkR session will stay alive until Jupyter server restarts. If we don't set the Spark resource usage limit, the SparkR session will grab all available resources, leading all future Spark applications stuck waiting. 
 
 ##### Terminate Jupyter R Kernel Properly
 
