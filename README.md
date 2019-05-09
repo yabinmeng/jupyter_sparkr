@@ -148,4 +148,6 @@ At this point, the Juypter server is ready to start, with the support for R and 
   $ dse exec jupyter notebook --ip=0.0.0.0 --port=9090
 ```
 
-The above command starts a Jupyter server process that listens on port **9090** on all IP address **0.0.0.0**. This is needed if we want to access the Jupyter notebook from a public IP. 
+The above command starts a Jupyter server process that listens on port **9090** on all IP address **0.0.0.0**. This is needed if we want to access the Jupyter notebook from a public IP.
+
+https://github.com/yabinmeng/jupyter_sparkr/blob/master/resources/notebook/MyDSESparkR.ipynb
