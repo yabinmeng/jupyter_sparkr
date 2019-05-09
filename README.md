@@ -188,8 +188,8 @@ In order to properly clean up the resources being allocated to the SparkR sessio
 
 Please **note** that simply  closing the notebook web browser window doesn't terminate the R kernel automatically. The SparkR session still stays alive and is buffered by Jupyter server for future usage. Next time when a new notebook is created, it will reuse the buffered SparkSession (if any) without creating a new session.
 
-### 
+# R Notebook with SparkR Demo 
 
 The following R notebook gives a demo on how to use the SparkR session to fetch data from a DSE C* table and then use R code for some statistical analysis. 
 
-![R Note Book with Spark](https://github.com/yabinmeng/jupyter_sparkr/blob/master/resources/notebook/MyDSESparkR.ipynb)
+![R Notebook with Spark](https://github.com/yabinmeng/jupyter_sparkr/blob/master/resources/notebook/MyDSESparkR.ipynb)
