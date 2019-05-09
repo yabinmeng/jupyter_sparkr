@@ -58,11 +58,7 @@ From the console command input (after '>'), you can type in the required R code.
   > 
 ```
 
-This method, although works, has a few practical limitations.
-
-First, since it is console based, it is literally a single-user environment. Different users trying to do concurrent R data analysis on the same DSE node need to launch their own consoles, which is resource heavy.
-
-Second and more importantly, it requires granting the end user proper access privilege to the DSE Analytics nodes. For most cases, it is treated as a security violation by granting direct end user access to production nodes; and therefore forbidden by many organization's IT security/compliance department.
+This method, although works, has a major limitation: It requires granting the end user proper access privilege to the DSE Analytics nodes. For many cases, it is treated as a security violation by granting direct end user access to production nodes; and therefore forbidden by many organization's IT security/compliance department.
 
 
 ## Integrate DSE R Support with Jupyter Notebook
@@ -148,23 +144,12 @@ At this point, the Juypter server is ready to start, with the support for R and 
   $ dse exec jupyter notebook --ip=0.0.0.0 --port=9090
 ```
 
-![Jupyter Web UI](https://github.com/yabinmeng/jupyter_sparkr/blob/master/resources/jupyter_r_home.png | width = 200)
+The above command starts a Jupyter server process that listens on port **9090** on all IP address **0.0.0.0**. This is needed if we want to access the Jupyter notebook web UI from a public IP. From the web UI, you can choose to create a R notebook. An example screenshot is as below:
+<img src="https://github.com/yabinmeng/jupyter_sparkr/blob/master/resources/jupyter_r_home.png" alt="Jupyter Web UI]" width="500">
 
-The above command starts a Jupyter server process that listens on port **9090** on all IP address **0.0.0.0**. This is needed if we want to access the Jupyter notebook from a public IP.
+When a R notebook is created for the first time, it wil
 
 ```
-[I 04:00:17.940 NotebookApp] Serving notebooks from local directory: /home/automaton
-[I 04:00:17.940 NotebookApp] The Jupyter Notebook is running at:
-[I 04:00:17.940 NotebookApp] http://(ip-172-31-21-1 or 127.0.0.1):9090/?token=365bc1e9175c1d889461a7a1b9dc324fc89d0c0a14ca9886
-[I 04:00:17.940 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
-[W 04:00:17.943 NotebookApp] No web browser found: could not locate runnable browser.
-[C 04:00:17.944 NotebookApp]
-
-    To access the notebook, open this file in a browser:
-        file:///run/user/1003/jupyter/nbserver-24658-open.html
-    Or copy and paste one of these URLs:
-        http://(ip-172-31-21-1 or 127.0.0.1):9090/?token=365bc1e9175c1d889461a7a1b9dc324fc89d0c0a14ca9886
-[I 04:03:31.771 NotebookApp] 302 GET / (38.99.104.114) 0.43ms
 [I 04:17:04.947 NotebookApp] Kernel started: 0e76461d-c61c-4714-b1d5-d8cac1e88fa7
 Spark package found in SPARK_HOME: /usr/share/dse/spark
 Launching java with spark-submit command /usr/share/dse/spark/bin/spark-submit   sparkr-shell /tmp/Rtmp95LjKZ/backend_port614854193131
