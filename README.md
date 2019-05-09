@@ -74,7 +74,7 @@ In order to address the above concerns, we can set up a Juypter notebook (server
 
 ### Install DSE Binaries
 
-It is needed to install DSE binaries on the client node so Jupyter R kernel can pick up the right DSE libraries for utilizing DSE SparkR funcationality. You can use any supported installation method (linux package, tarball, etc.) to install DSE binaries on the client node. But please make sure do NOT start DSE service because all we need here is proper DSE libraries. In my test, I use linux ATP package installation method that can be found at:
+It is needed to install DSE binaries on the client node so Jupyter R kernel can pick up the right DSE libraries to utilize DSE SparkR funcationality. You can use any supported installation method (linux package, tarball, etc.) to install DSE binaries on the client node. But please make sure do NOT start DSE service because all we need here are DSE libraries. In my test, I use linux ATP package installation method that can be found at:
 https://docs.datastax.com/en/install/6.7/install/installDEBdse.html
 
 ### Install Jupyter
@@ -91,7 +91,7 @@ Verify the installed version by the following command:
 ```
 
 ### Install R
-The commands to install R on the Ubuntu (16.04.3 LTS) node instance is as below:
+The commands to install R on the node instance is as below:
 ```
   $ sudo sh -c 'echo "deb http://cran.rstudio.com/bin/linux/ubuntu trusty/" >> /etc/apt/sources.list'
   $ gpg --keyserver keyserver.ubuntu.com --recv-key E084DAB9 && gpg -a --export E084DAB9
@@ -119,14 +119,14 @@ Second, from the R console command line, run the following commands. The install
   > IRkernel::installspec(user = FALSE)
 ```
 
-Third (optionally), in order to use more extended R libraries (e.g. from a Jupyter R notebook), we need to install them as well following the same approach. For example, in my test, I installed [dplyr](https://dplyr.tidyverse.org/) and [ggplot2](https://ggplot2.tidyverse.org/) for more advanced R data manipulation and graph processing. The commands are as below:
+Third (optionally), in order to use more extended R libraries, we need to install them as well, following the same approach. For example, in my test, I installed [dplyr](https://dplyr.tidyverse.org/) and [ggplot2](https://ggplot2.tidyverse.org/) for more advanced R data manipulation and graph processing. The commands are as below:
 ```
   > install.packages('dplyr')
   > install.packages('ggplot2')
 ```
 
 ### Configure Remote DSE Cluster Connection for SparkR
-By default, DSE SparkR library tries to connect to the local node as the Spark master node. For this testing, since the Spark master node (one of the DSE Analytics node) is on a remote cluster, we need to tell SparkR where the remote Spark master node is. This is done by making the follwing configuration changes in **spark-defaults.conf** of the DSE Spark installation (e.g. /etc/dse/spark/spark-defaults.conf). We can also make other Spark related settings here. For example, maximum number of CPUs and memory allocated to the SparkSession used by SparkR. 
+By default, DSE SparkR library tries to connect to the local node as the Spark master node. For this testing, since the Spark master node (one of the DSE Analytics node) is on a remote cluster, we need to tell SparkR where the remote Spark master node is. This is done by making the follwing configuration changes in **spark-defaults.conf** of the DSE Spark installation (e.g. /etc/dse/spark/spark-defaults.conf). We can also make other Spark related settings here. For example, the maximum number of CPUs and memory allocated to the SparkSession used by SparkR. 
 
 ```
   spark.master  dse://<DSE_Analytic_Node_IP>:9042
@@ -144,3 +144,8 @@ Please **note** that:
 
 ### Start Jupyter Server
 At this point, the Juypter server is ready to start, with the support for R and integration with Spark (through SparkR). Run the following command to start the Jupyter server.
+```
+  $ dse exec jupyter notebook --ip=0.0.0.0 --port=9090
+```
+
+The above command starts a Jupyter server process that listens on port **9090** on all IP address **0.0.0.0**. This is needed if we want to access the Jupyter notebook from a public IP. 
