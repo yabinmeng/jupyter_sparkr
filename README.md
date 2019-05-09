@@ -145,9 +145,10 @@ At this point, the Juypter server is ready to start, with the support for R and 
 ```
 
 The above command starts a Jupyter server process that listens on port **9090** on all IP address **0.0.0.0**. This is needed if we want to access the Jupyter notebook web UI from a public IP. From the web UI, you can choose to create a R notebook. An example screenshot is as below:
-<img src="https://github.com/yabinmeng/jupyter_sparkr/blob/master/resources/jupyter_r_home.png" alt="Jupyter Web UI]" width="500">
 
-When a R notebook is created for the first time, it wil
+<img src="https://github.com/yabinmeng/jupyter_sparkr/blob/master/resources/jupyter_r_home.png" alt="Jupyter Web UI]" width="600">
+
+When a new R notebook is created, it will start a (Jupyter) R kernel which is able to run Spark code via SparkR. If the R kernel is successfully started, you should see something similar to be low from Jupyter server log.
 
 ```
 [I 04:17:04.947 NotebookApp] Kernel started: 0e76461d-c61c-4714-b1d5-d8cac1e88fa7
@@ -171,5 +172,11 @@ In SparkR::sparkR.session() :
 [I 04:17:29.489 NotebookApp] Saving file at /MyDSESparkR.ipynb
 ```
 
+Meanwhile, from Spark master web UI, you should see a running application named under "sparkR", as below. 
 
-![Note Book Example](https://github.com/yabinmeng/jupyter_sparkr/blob/master/resources/notebook/MyDSESparkR.ipynb)
+<img src="https://github.com/yabinmeng/jupyter_sparkr/blob/master/resources/jupypter_sparkr_master.png" alt="Jupyter Web UI]" width="600">
+
+Please also **notice** the CPU and memory usage as limiteded per our previous settings. This is very important to set the limits because the SparkR session launched from the notebook is a long running session. Unless the notebook user explicitly terminate the R kernel from the notebook UI (note: not just simply close the notebook web browser), it will stay alive until Jupyter server restarts. If we don't set the Spark resource usage limit, the SparkR session will grab all available resources, leading all future Spark applications stuck waiting. 
+
+
+![R Note Book with Spark](https://github.com/yabinmeng/jupyter_sparkr/blob/master/resources/notebook/MyDSESparkR.ipynb)
