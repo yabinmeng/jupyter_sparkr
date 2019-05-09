@@ -192,5 +192,5 @@ Please **note** that simply  closing the notebook web browser window doesn't ter
 
 The following R notebook gives a demo on how to use the SparkR session to fetch data from a DSE C* table and then use R code for some statistical analysis. 
 
-<a href="https://nbviewer.jupyter.org/github/yabinmeng/jupyter_sparkr/blob/master/resources/notebook/MyDSESparkR.ipynb" target="_blank">Jupyter R notebook example with SparkR and DSE</a>
+<a href="https://nbviewer.jupyter.org/github/yabinmeng/jupyter_sparkr/blob/master/resources/notebook/MyDSESparkR.ipynb">Jupyter R notebook example with SparkR and DSE</a>
 
