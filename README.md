@@ -178,11 +178,18 @@ Meanwhile, from Spark master web UI, you should see a running application named 
 
 #### Limit SparkR Resource Usage
 
-Please also **notice** the CPU and memory usage as limiteded per our previous settings. This is very important to set the limits because the SparkR session launched from the notebook is a long running session. Unless the notebook user explicitly terminate the R kernel from the notebook UI (note: not just simply close the notebook web browser), it will stay alive until Jupyter server restarts. If we don't set the Spark resource usage limit, the SparkR session will grab all available resources, leading all future Spark applications stuck waiting. 
+Please also **notice** the CPU and memory usage as limiteded per our previous settings. This is very important to set the limits because the SparkR session launched from the notebook is a long running session. Unless the notebook user explicitly terminate the R kernel (see below), the SparkR session will stay alive until Jupyter server restarts. If we don't set the Spark resource usage limit, the SparkR session will grab all available resources, leading all future Spark applications stuck waiting. 
 
-#### Terminate Jupyter R Kernel Properly
+##### Terminate Jupyter R Kernel Properly
+
+In order to properly clean up the resources being allocated to the SparkR session at the Spark cluster, the notebook user needs to explicitly terminate the R kernel associated with it from the notebook UI, as below.
 
 <img src="https://github.com/yabinmeng/jupyter_sparkr/blob/master/resources/jupyter_rkernel_shutdown.png" alt="Jupyter Web UI]" width="600">
 
+Please **note** that simply  closing the notebook web browser window doesn't terminate the R kernel automatically. The SparkR session still stays alive and is buffered by Jupyter server for future usage. Next time when a new notebook is created, it will reuse the buffered SparkSession (if any) without creating a new session.
+
 ### 
+
+The following R notebook gives a demo on how to use the SparkR session to fetch data from a DSE C* table and then use R code for some statistical analysis. 
+
 ![R Note Book with Spark](https://github.com/yabinmeng/jupyter_sparkr/blob/master/resources/notebook/MyDSESparkR.ipynb)
